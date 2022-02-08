@@ -23,13 +23,13 @@
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['combinedcalendar:view'] = 'View combined calendar report';
-$string['display'] = 'Display';
-$string['end'] = 'End';
-$string['endgreaterthanstarterror'] = 'Please ensure that the End Date is greater than or equal to the Start Date';
-$string['endstartintervalerror'] = 'Please ensure that the interval between the two dates is less than or equal to 30 days';
-$string['formheader'] = 'Combined calendar by groups';
-$string['pluginname'] = 'Combined calendar';
-$string['privacy:metadata'] = 'The Combined calendar plugin does not store any personal data.';
-$string['start'] = 'Start';
+$string['combinedcalendar:view'] = 'Voir le rapport du calendrier combiné';
+$string['display'] = 'Afficher';
+$string['end'] = 'Fin';
+$string['endgreaterthanstarterror'] = 'Veuillez vous assurer que la date de fin est supérieure ou égale à la date de début';
+$string['endstartintervalerror'] = 'Veuillez vous assurer que l\'intervalle entre les deux dates est inférieur ou égal à 30 jours';
+$string['formheader'] = 'Calendrier combiné par groupes';
+$string['pluginname'] = 'Calendrier combiné';
+$string['privacy:metadata'] = 'Le plugin Calendrier combiné n\'enregistre aucune donnée personnelle.';
+$string['start'] = 'Début';
 

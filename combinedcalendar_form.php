@@ -14,22 +14,38 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once("$CFG->libdir/formslib.php");
+
 /**
- * Strings for component 'report_combinedcalendar'.
+ * Combined calendar form class.
  *
  * @package   report_combinedcalendar
  * @author    Annouar Faraman <annouar.faraman@umontreal.ca>
  * @copyright 2022 Université de Montréal
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class combinedcalendar_form extends moodleform {
 
-$string['combinedcalendar:view'] = 'View combined calendar report';
-$string['display'] = 'Display';
-$string['end'] = 'End';
-$string['endgreaterthanstarterror'] = 'Please ensure that the End Date is greater than or equal to the Start Date';
-$string['endstartintervalerror'] = 'Please ensure that the interval between the two dates is less than or equal to 30 days';
-$string['formheader'] = 'Combined calendar by groups';
-$string['pluginname'] = 'Combined calendar';
-$string['privacy:metadata'] = 'The Combined calendar plugin does not store any personal data.';
-$string['start'] = 'Start';
+    /**
+     * Defines forms elements
+     */
+    public function definition() {
+        global $CFG, $PAGE;
+
+        $mform = $this->_form;
+
+        // Adding export form fieldset.
+        $mform->addElement('header', 'combinedcalendarformheader', get_string('formheader', 'report_combinedcalendar'));
+
+        // Adding dates fields.
+        $mform->addElement('date_selector', 'start', get_string('start', 'report_combinedcalendar'));
+
+        $mform->addElement('date_selector', 'end', get_string('end', 'report_combinedcalendar'));
+
+        // Adding a submit button.
+        $mform->addElement('submit', 'displaybutton', get_string('display', 'report_combinedcalendar'));
+    }
+}
 

@@ -41,3 +41,39 @@ function report_combinedcalendar_extend_navigation_course($navigation, $course, 
             navigation_node::TYPE_SETTING, null, null, new pix_icon('i/report', ''));
     }
 }
+
+/**
+ * Print selected dates.
+ *
+ * @param int|false $start Start timestamp
+ * @param int|false $end End timestamp
+ */
+function print_selected_dates($start, $end) {
+    if ($start < $end) {
+        $onedaytoseconds = 86400;
+        $oneyeartoseconds = 365 * $onedaytoseconds;
+        $onemonthtoseconds = 30 * $onedaytoseconds;
+
+        $diff = $end - $start;
+        $yearsdiff = floor($diff / ($oneyeartoseconds));
+        $monthsdiff = floor(($diff - $yearsdiff * $oneyeartoseconds) / $onemonthtoseconds);
+
+        if ($monthsdiff < 1) {
+            $toprint = "Start date =======".date('Y-m-d', $start)."<br>".
+                "End date =======".date('Y-m-d', $end);
+        } else {
+            $toprint = '<div class="alert alert-danger" role="alert">'.
+                get_string('endstartintervalerror', 'report_combinedcalendar').
+                '</div>';
+        }
+    } else if ($start == $end) {
+        $toprint = "Start date =======".date('Y-m-d', $start)."<br>".
+            "End date =======".date('Y-m-d', $end);
+    } else {
+        $toprint = '<div class="alert alert-danger" role="alert">'.
+            get_string('endgreaterthanstarterror', 'report_combinedcalendar').
+            '</div>';
+    }
+
+    echo $toprint;
+}
