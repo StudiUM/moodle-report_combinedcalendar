@@ -43,36 +43,192 @@ function report_combinedcalendar_extend_navigation_course($navigation, $course, 
 }
 
 /**
- * Print selected dates.
+ * Validate dates.
  *
  * @param int|false $start Start timestamp
  * @param int|false $end End timestamp
+ * @return array
  */
-function print_selected_dates($start, $end) {
+function validate_dates($start, $end) {
+    global $OUTPUT;
+
+    $result = array('success' => false, 'error' => '');
+
     if ($start < $end) {
-        $onedaytoseconds = 86400;
-        $oneyeartoseconds = 365 * $onedaytoseconds;
-        $onemonthtoseconds = 30 * $onedaytoseconds;
+        $startdatetime = new DateTime('@' . $start);
+        $enddatetime = new DateTime('@' . $end);
+        $interval = $startdatetime->diff($enddatetime);
+        $daysdiff = $interval->format('%a');
 
-        $diff = $end - $start;
-        $yearsdiff = floor($diff / ($oneyeartoseconds));
-        $monthsdiff = floor(($diff - $yearsdiff * $oneyeartoseconds) / $onemonthtoseconds);
-
-        if ($monthsdiff < 1) {
-            $toprint = "Start date =======".date('Y-m-d', $start)."<br>".
-                "End date =======".date('Y-m-d', $end);
+        if ($daysdiff <= 30) {
+            $result['success'] = true;
         } else {
-            $toprint = '<div class="alert alert-danger" role="alert">'.
-                get_string('endstartintervalerror', 'report_combinedcalendar').
-                '</div>';
+            $result['error'] = $OUTPUT->render_from_template('report_combinedcalendar/endstartintervalerror', []);
         }
     } else if ($start == $end) {
-        $toprint = "Start date =======".date('Y-m-d', $start)."<br>".
-            "End date =======".date('Y-m-d', $end);
+        $result['success'] = true;
     } else {
-        $toprint = '<div class="alert alert-danger" role="alert">'.
-            get_string('endgreaterthanstarterror', 'report_combinedcalendar').
-            '</div>';
+        $result['error'] = $OUTPUT->render_from_template('report_combinedcalendar/endgreaterthanstarterror', []);;
+    }
+
+    return $result;
+}
+
+/**
+ * Group calendar events by a field.
+ *
+ * @param string $field (group|datetime).
+ * @param array $calendarevents calendar events.
+ * @return array
+ */
+function calendar_events_group_by($field, $calendarevents) {
+    $events = array();
+    switch ($field) {
+        case 'group':
+            foreach ($calendarevents as $element) {
+                $events[$element->groupid][date('Y-m-d H:i', $element->timestart)][] = 'group';
+            }
+          break;
+        case 'datetime':
+            foreach ($calendarevents as $element) {
+                $eventdatetime = date('Y-m-d', $element->timestart).'|'.$element->timestart.'|'.$element->timeduration;
+                $events[date('Y-m-d H:i', $element->timestart)][] = $eventdatetime;
+            }
+          break;
+    }
+
+    return $events;
+}
+
+/**
+ * Get combined calendar groups.
+ *
+ * @param array $calendareventsbygroup Calendar events by group.
+ * @param array $calendareventsbydatetimekeys calendar events by datetime array keys.
+ * @return array
+ */
+function get_combined_calendar_groups($calendareventsbygroup, $calendareventsbydatetimekeys) {
+
+    $result  = array();
+
+    foreach ($calendareventsbygroup as $groupid => $groupeventsdata) {
+        // Group name.
+        $groupname = groups_get_group_name($groupid);
+
+        // Group members.
+        $groupmembers = groups_get_members($groupid);
+        foreach ($groupeventsdata as $groupevent) {
+            $members = array();
+            foreach ($groupmembers as $member) {
+                $members[]['member'] = $member->firstname.'  '.$member->lastname;
+            }
+        }
+
+        // Group events.
+        $groupevents = array();
+        $groupeventsbydatetime = array_keys($groupeventsdata);
+        foreach ($calendareventsbydatetimekeys as $event) {
+            if (in_array($event, $groupeventsbydatetime)) {
+                array_push($groupevents, array('hasevent' => true, 'members' => $members));
+            } else {
+                $groupevents[]['hasevent'] = false;
+            }
+        }
+
+        $groupdata = array('name' => $groupname,
+            'groupevents' => $groupevents
+        );
+
+        $result[] = $groupdata;
+    }
+
+    return $result;
+}
+
+/**
+ * Get combined calendar events.
+ *
+ * @param array $calendareventsbydatetime Calendar events by datetime.
+ * @return array
+ */
+function get_combined_calendar_events($calendareventsbydatetime) {
+
+    $result  = array();
+
+    foreach ($calendareventsbydatetime as $event => $data) {
+        $eventdata = explode('|', reset($data));
+
+        // Event date.
+        $eventdate = $eventdata[0];
+
+        // Event slot.
+        $eventslotstart = date('H:i', $eventdata[1]);
+        $eventslotend = date('H:i', $eventdata[1] + $eventdata[2]);
+        $eventslot = $eventslotstart.' '.get_string('to', 'report_combinedcalendar').' '.$eventslotend;
+
+        $eventdata = array('date' => $eventdate,
+            'timeslot' => $eventslot,
+        );
+
+        $result[] = $eventdata;
+    }
+
+    return $result;
+}
+
+/**
+ * Get combined calendar data.
+ *
+ * @param int|false $start Start timestamp.
+ * @param int|false $end End timestamp.
+ * @param int $courseid Course id.
+ * @return array
+ */
+function get_combined_calendar_data($start, $end, $courseid) {
+
+    // Get calendar events.
+    $calendarevents = calendar_get_legacy_events($start, $end, true, true, $courseid);
+
+    $calendargroupevents = array_filter($calendarevents, function ($event) {
+        return ($event->eventtype == 'group');
+    });
+
+    if (!empty($calendarevents)) {
+        // Get combined calendar events.
+        $calendareventsbydatetime = calendar_events_group_by('datetime', $calendargroupevents);
+        $combinedcalendarevents = get_combined_calendar_events($calendareventsbydatetime);
+
+        // Get combined calendar groups.
+        $calendareventsbygroup = calendar_events_group_by('group', $calendargroupevents);
+        $calendareventsbydatetimekeys = array_keys($calendareventsbydatetime);
+        $combinedcalendargroups = get_combined_calendar_groups($calendareventsbygroup, $calendareventsbydatetimekeys);
+
+        $datatodisplay = array('hasevents' => true, 'events' => $combinedcalendarevents, 'groups' => $combinedcalendargroups);
+    } else {
+        $datatodisplay = array('hasevents' => false);
+    }
+
+    return $datatodisplay;
+}
+
+/**
+ * Print combined calendar.
+ *
+ * @param int|false $start Start timestamp
+ * @param int|false $end End timestamp
+ * @param int $courseid Course id.
+ */
+function print_combined_calendar($start, $end, $courseid) {
+    global $OUTPUT;
+
+    $result = validate_dates($start, $end);
+
+    if ($result['success']) {
+        $end = strtotime("+1 day", $end);
+        $combinedcalendardata = get_combined_calendar_data($start, $end, $courseid);
+        $toprint = $OUTPUT->render_from_template('report_combinedcalendar/combinedcalendartable', $combinedcalendardata);
+    } else {
+        $toprint  = $result['error'];
     }
 
     echo $toprint;

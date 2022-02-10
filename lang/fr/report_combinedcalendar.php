@@ -24,12 +24,15 @@
  */
 
 $string['combinedcalendar:view'] = 'Voir le rapport du calendrier combiné';
+$string['dates'] = 'Dates';
 $string['display'] = 'Afficher';
 $string['end'] = 'Fin';
 $string['endgreaterthanstarterror'] = 'Veuillez vous assurer que la date de fin est supérieure ou égale à la date de début';
 $string['endstartintervalerror'] = 'Veuillez vous assurer que l\'intervalle entre les deux dates est inférieur ou égal à 30 jours';
 $string['formheader'] = 'Calendrier combiné par groupes';
+$string['hours'] = 'Heures';
+$string['noevents'] = 'Il n\'y a aucun événement entre les deux dates sélectionnées';
 $string['pluginname'] = 'Calendrier combiné';
 $string['privacy:metadata'] = 'Le plugin Calendrier combiné n\'enregistre aucune donnée personnelle.';
 $string['start'] = 'Début';
-
+$string['to'] = 'à';

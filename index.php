@@ -26,6 +26,7 @@
 require_once('../../config.php');
 require_once($CFG->dirroot.'/lib/statslib.php');
 require_once($CFG->libdir.'/adminlib.php');
+require_once($CFG->dirroot.'/calendar/lib.php');
 require_once($CFG->dirroot.'/report/combinedcalendar/lib.php');
 require_once($CFG->dirroot.'/report/combinedcalendar/combinedcalendar_form.php');
 
@@ -63,10 +64,11 @@ require_capability('report/combinedcalendar:view', $context);
 $mform = new combinedcalendar_form($url);
 
 echo $OUTPUT->header();
+echo $OUTPUT->heading(get_string('formheader', 'report_combinedcalendar'));
 $mform->display();
 
 // Form processing.
 if ($formdata = $mform->get_data()) {
-    print_selected_dates($formdata->start, $formdata->end);
+    print_combined_calendar($formdata->start, $formdata->end, $course->id);
 }
 echo $OUTPUT->footer();

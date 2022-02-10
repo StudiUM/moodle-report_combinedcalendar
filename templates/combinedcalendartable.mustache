@@ -1,0 +1,41 @@
+{{#hasevents}}
+<div style="min-width:1366px;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th width="20%">{{#str}} dates, report_combinedcalendar{{/str}}</th>
+        {{#events}}
+        <th>{{date}}</th>
+        {{/events}} 
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{#str}} hours, report_combinedcalendar{{/str}}</td>
+        {{#events}}
+        <td>{{timeslot}}</td>
+        {{/events}}
+      </tr>
+      {{#groups}}
+      <tr>
+        <td>{{name}}</td>
+        {{#groupevents}}
+        <td>
+        {{#hasevent}}
+          {{#members}}
+          <div style="width:150px">{{member}}</div>
+          {{/members}}
+        {{/hasevent}}
+        </td>
+        {{/groupevents}}
+      </tr>
+      {{/groups}}
+    </tbody>
+  </table>
+</div>
+{{/hasevents}}
+{{^hasevents}}
+    <div class="alert alert-info" role="alert">
+      {{#str}} noevents, report_combinedcalendar{{/str}}
+    </div>
+{{/hasevents}}

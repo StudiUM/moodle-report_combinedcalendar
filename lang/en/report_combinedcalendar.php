@@ -24,12 +24,16 @@
  */
 
 $string['combinedcalendar:view'] = 'View combined calendar report';
+$string['dates'] = 'Dates';
 $string['display'] = 'Display';
 $string['end'] = 'End';
 $string['endgreaterthanstarterror'] = 'Please ensure that the End Date is greater than or equal to the Start Date';
 $string['endstartintervalerror'] = 'Please ensure that the interval between the two dates is less than or equal to 30 days';
 $string['formheader'] = 'Combined calendar by groups';
+$string['hours'] = 'Hours';
+$string['noevents'] = 'There are no events between the two selected dates';
 $string['pluginname'] = 'Combined calendar';
 $string['privacy:metadata'] = 'The Combined calendar plugin does not store any personal data.';
 $string['start'] = 'Start';
+$string['to'] = 'to';
 

@@ -36,9 +36,6 @@ class combinedcalendar_form extends moodleform {
 
         $mform = $this->_form;
 
-        // Adding export form fieldset.
-        $mform->addElement('header', 'combinedcalendarformheader', get_string('formheader', 'report_combinedcalendar'));
-
         // Adding dates fields.
         $mform->addElement('date_selector', 'start', get_string('start', 'report_combinedcalendar'));
 
@@ -48,4 +45,3 @@ class combinedcalendar_form extends moodleform {
         $mform->addElement('submit', 'displaybutton', get_string('display', 'report_combinedcalendar'));
     }
 }
-
