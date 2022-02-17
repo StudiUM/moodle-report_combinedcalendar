@@ -49,7 +49,7 @@ function report_combinedcalendar_extend_navigation_course($navigation, $course, 
  * @param int|false $end End timestamp
  * @return array
  */
-function validate_dates($start, $end) {
+function report_combinedcalendar_validate_dates($start, $end) {
     global $OUTPUT;
 
     $result = array('success' => false, 'error' => '');
@@ -81,7 +81,7 @@ function validate_dates($start, $end) {
  * @param array $calendarevents calendar events.
  * @return array
  */
-function calendar_events_group_by($field, $calendarevents) {
+function report_combinedcalendar_events_group_by($field, $calendarevents) {
     $events = array();
     switch ($field) {
         case 'group':
@@ -219,14 +219,14 @@ function get_combined_calendar_data($start, $end, $courseid) {
 
     if (!empty($calendarevents)) {
         // Get combined calendar events.
-        $calendareventsbydatetime = calendar_events_group_by('datetime', $calendargroupevents);
+        $calendareventsbydatetime = report_combinedcalendar_events_group_by('datetime', $calendargroupevents);
         $combinedcalendarevents = get_combined_calendar_events($calendareventsbydatetime);
 
         // Get combined calendar dates.
         $combinedcalendardates = get_combined_calendar_dates($combinedcalendarevents);
 
         // Get combined calendar groups.
-        $calendareventsbygroup = calendar_events_group_by('group', $calendargroupevents);
+        $calendareventsbygroup = report_combinedcalendar_events_group_by('group', $calendargroupevents);
         $calendareventsbydatetimekeys = array_keys($calendareventsbydatetime);
         $combinedcalendargroups = get_combined_calendar_groups($calendareventsbygroup, $calendareventsbydatetimekeys);
 
@@ -249,7 +249,7 @@ function get_combined_calendar_data($start, $end, $courseid) {
 function print_combined_calendar($start, $end, $courseid) {
     global $OUTPUT;
 
-    $result = validate_dates($start, $end);
+    $result = report_combinedcalendar_validate_dates($start, $end);
 
     if ($result['success']) {
         $end = strtotime("+1 day", $end);
