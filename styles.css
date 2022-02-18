@@ -1,0 +1,8 @@
+td.timeslot {
+    text-align:center;
+}
+
+.member-name {
+    width:150px;
+    word-break: break-word;
+}

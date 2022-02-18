@@ -1,19 +1,19 @@
 {{#hasevents}}
-<div style="min-width:1366px;">
-  <table class="table">
+<div class="combined-calendar-container">
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th width="20%">{{#str}} dates, report_combinedcalendar{{/str}}</th>
-        {{#events}}
-        <th>{{date}}</th>
-        {{/events}} 
+        <th>{{#str}} dates, report_combinedcalendar{{/str}}</th>
+        {{#dates}}
+        <th colspan={{count}} class="text-center">{{date}}</th>
+        {{/dates}} 
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>{{#str}} hours, report_combinedcalendar{{/str}}</td>
         {{#events}}
-        <td>{{timeslot}}</td>
+        <td class="timeslot">{{timeslot}}</td>
         {{/events}}
       </tr>
       {{#groups}}
@@ -23,7 +23,7 @@
         <td>
         {{#hasevent}}
           {{#members}}
-          <div style="width:150px">{{member}}</div>
+          <div class="member-name">{{member}}</div>
           {{/members}}
         {{/hasevent}}
         </td>

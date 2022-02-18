@@ -177,6 +177,30 @@ function get_combined_calendar_events($calendareventsbydatetime) {
 }
 
 /**
+ * Get combined calendar dates.
+ *
+ * @param array $combinedcalendarevents Combined calendar events.
+ * @return array
+ */
+function get_combined_calendar_dates($combinedcalendarevents) {
+
+    $result  = array();
+
+    $dates = array_count_values(array_column($combinedcalendarevents, 'date'));
+
+    foreach ($dates as $date => $count) {
+
+        $datedata = array('date' => $date,
+            'count' => $count
+        );
+
+        $result[] = $datedata;
+    }
+
+    return $result;
+}
+
+/**
  * Get combined calendar data.
  *
  * @param int|false $start Start timestamp.
@@ -198,12 +222,16 @@ function get_combined_calendar_data($start, $end, $courseid) {
         $calendareventsbydatetime = calendar_events_group_by('datetime', $calendargroupevents);
         $combinedcalendarevents = get_combined_calendar_events($calendareventsbydatetime);
 
+        // Get combined calendar dates.
+        $combinedcalendardates = get_combined_calendar_dates($combinedcalendarevents);
+
         // Get combined calendar groups.
         $calendareventsbygroup = calendar_events_group_by('group', $calendargroupevents);
         $calendareventsbydatetimekeys = array_keys($calendareventsbydatetime);
         $combinedcalendargroups = get_combined_calendar_groups($calendareventsbygroup, $calendareventsbydatetimekeys);
 
-        $datatodisplay = array('hasevents' => true, 'events' => $combinedcalendarevents, 'groups' => $combinedcalendargroups);
+        $datatodisplay = array('hasevents' => true, 'dates' => $combinedcalendardates,
+            'events' => $combinedcalendarevents, 'groups' => $combinedcalendargroups);
     } else {
         $datatodisplay = array('hasevents' => false);
     }

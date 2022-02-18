@@ -41,6 +41,7 @@ $url = new moodle_url("/report/combinedcalendar/index.php", $params);
 
 $PAGE->set_url('/report/combinedcalendar/index.php', array('id' => $id));
 $PAGE->set_pagelayout('report');
+$PAGE->requires->css(new moodle_url('/report/combinedcalendar/styles.css'));
 
 // Get course details.
 $course = null;
