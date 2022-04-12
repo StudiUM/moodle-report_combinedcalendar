@@ -23,6 +23,7 @@
  * @copyright 2022 Université de Montréal
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace report_combinedcalendar;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -40,7 +41,7 @@ require_once($CFG->dirroot . '/calendar/tests/externallib_test.php');
  * @copyright 2022 Université de Montréal
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class report_combinedcalendar_lib_test extends advanced_testcase {
+class lib_test extends \advanced_testcase {
 
     /**
      * Set up for every test
@@ -124,39 +125,39 @@ class report_combinedcalendar_lib_test extends advanced_testcase {
         $generator->create_group_member(array('userid' => $teacher2->id, 'groupid' => $group4->id));
 
         // Create calendar event 1.
-        $record = new stdClass();
+        $record = new \stdClass();
         $record->courseid = $course->id;
         $record->groupid = $group1->id;
         $record->timestart = strtotime("2022-02-20 8:00");
         $record->timeduration = 10800;
-        core_calendar_externallib_testcase::create_calendar_event('session 1', 0,
+        \core_calendar_externallib_testcase::create_calendar_event('session 1', 0,
             'group', 0, null, $record);
 
         // Create calendar event 2.
-        $record = new stdClass();
+        $record = new \stdClass();
         $record->courseid = $course->id;
         $record->groupid = $group3->id;
         $record->timestart = strtotime("2022-02-20 8:00");
         $record->timeduration = 10800;
-        core_calendar_externallib_testcase::create_calendar_event('session 1', 0,
+        \core_calendar_externallib_testcase::create_calendar_event('session 1', 0,
             'group', 0, null, $record);
 
         // Create calendar event 3.
-        $record = new stdClass();
+        $record = new \stdClass();
         $record->courseid = $course->id;
         $record->groupid = $group2->id;
         $record->timestart = strtotime("2022-02-22 13:30");
         $record->timeduration = 7200;
-        core_calendar_externallib_testcase::create_calendar_event('session 2', 0,
+        \core_calendar_externallib_testcase::create_calendar_event('session 2', 0,
             'group', 0, null, $record);
 
         // Create calendar event 4.
-        $record = new stdClass();
+        $record = new \stdClass();
         $record->courseid = $course->id;
         $record->groupid = $group4->id;
         $record->timestart = strtotime("2022-02-22 13:30");
         $record->timeduration = 7200;
-        core_calendar_externallib_testcase::create_calendar_event('session 2', 0,
+        \core_calendar_externallib_testcase::create_calendar_event('session 2', 0,
             'group', 0, null, $record);
 
         // There are some events between the two dates.

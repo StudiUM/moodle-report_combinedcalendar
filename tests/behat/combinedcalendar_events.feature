@@ -12,7 +12,7 @@ Feature: Combined calendar
       | fullname | shortname | format | startdate   |
       | Course 1 | C1        | topics | 1645315200  |
     And the following "course enrolments" exist:
-      | user     | course | role           | 
+      | user     | course | role           |
       | teacher1 | C1     | teacher        |
 
   @javascript

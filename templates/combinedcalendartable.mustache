@@ -1,3 +1,85 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template report_combinedcalendar/combinedcalendartable
+
+    Context variables required for this template:
+    * hasevents
+    * dates - array of following elements
+      * count
+      * date
+    * events - array of following elements
+      * timeslot
+    * groups - array of following elements
+      * name
+      * groupevents - array of following elements
+        * hasevent
+        * members - array of following elements
+          * member
+
+    Example context (json):
+    {
+      "hasevents": true,
+      "dates": [
+        { "count": "3", "date": "2022-04-12" },
+        { "count": "2", "date": "2022-04-13" }
+      ],
+      "events": [
+        { "timeslot": "08:00 to 11:00" },
+        { "timeslot": "13:00 to 16:00" },
+      ],
+      "groups": [
+        {
+          "name": "Group A",
+          "groupevents": [
+              {
+                "hasevent": true,
+                "members": [
+                  { "member": "Student1 Lastname1" },
+                  { "member": "Student2 Lastname2" },
+                ]
+              },
+              {
+                "hasevent": false,
+                "members": [
+                ]
+              }
+          ]
+        },
+        {
+          "name": "Group B",
+          "groupevents": [
+              {
+                "hasevent": false,
+                "members": [
+                ]
+              },
+              {
+                "hasevent": true,
+                "members": [
+                  { "member": "Student3 Lastname3" },
+                  { "member": "Student3 Lastname3" },
+                ]
+              }
+          ]
+        }
+      ],
+    }
+ }}
 {{#hasevents}}
 <div class="combined-calendar-container">
   <table id="combined-calendar-table" class="table table-bordered table-striped">
@@ -6,7 +88,7 @@
         <th>{{#str}} dates, report_combinedcalendar{{/str}}</th>
         {{#dates}}
         <th colspan={{count}} class="text-center">{{date}}</th>
-        {{/dates}} 
+        {{/dates}}
       </tr>
     </thead>
     <tbody>

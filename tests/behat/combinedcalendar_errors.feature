@@ -12,7 +12,7 @@ Feature: Combined calendar form testing
       | fullname | shortname | format |
       | Course 1 | C1        | topics |
     And the following "course enrolments" exist:
-      | user     | course | role           | 
+      | user     | course | role           |
       | teacher1 | C1     | editingteacher |
     And I log in as "teacher1"
     And I am on "Course 1" course homepage

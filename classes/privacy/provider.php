@@ -25,8 +25,6 @@
 
 namespace report_combinedcalendar\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy Subsystem for report_combinedcalendar implementing null_provider.
  *
