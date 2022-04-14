@@ -208,30 +208,29 @@ function get_combined_calendar_dates($combinedcalendarevents) {
  */
 function get_combined_calendar_data($start, $end, $courseid) {
 
-    // Get calendar events.
-    $calendarevents = calendar_get_legacy_events($start, $end, true, true, $courseid);
+    $datatodisplay = array('hasevents' => false);
 
-    $calendargroupevents = array_filter($calendarevents, function ($event) {
-        return ($event->eventtype == 'group');
-    });
+    // Get course groups ids.
+    $coursegroups = array_keys(groups_get_all_groups($courseid));
 
-    if (!empty($calendarevents)) {
+    // Get course calendar group events.
+    $coursecalendargroupevents = calendar_get_legacy_events($start, $end, false, $coursegroups, false);
+
+    if (!empty($coursecalendargroupevents)) {
         // Get combined calendar events.
-        $calendareventsbydatetime = report_combinedcalendar_events_group_by('datetime', $calendargroupevents);
+        $calendareventsbydatetime = report_combinedcalendar_events_group_by('datetime', $coursecalendargroupevents);
         $combinedcalendarevents = get_combined_calendar_events($calendareventsbydatetime);
 
         // Get combined calendar dates.
         $combinedcalendardates = get_combined_calendar_dates($combinedcalendarevents);
 
         // Get combined calendar groups.
-        $calendareventsbygroup = report_combinedcalendar_events_group_by('group', $calendargroupevents);
+        $calendareventsbygroup = report_combinedcalendar_events_group_by('group', $coursecalendargroupevents);
         $calendareventsbydatetimekeys = array_keys($calendareventsbydatetime);
         $combinedcalendargroups = get_combined_calendar_groups($calendareventsbygroup, $calendareventsbydatetimekeys);
 
         $datatodisplay = array('hasevents' => true, 'dates' => $combinedcalendardates,
             'events' => $combinedcalendarevents, 'groups' => $combinedcalendargroups);
-    } else {
-        $datatodisplay = array('hasevents' => false);
     }
 
     return $datatodisplay;
