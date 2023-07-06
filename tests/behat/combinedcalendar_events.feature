@@ -65,10 +65,13 @@ Feature: Combined calendar
       | student1b | Gb    |
       | student2b | Gb    |
     And I log in as "admin"
+    And the following config values are set as admin:
+      | calendar_adminseesall | true |
     And I am on "Course 1" course homepage with editing mode on
     And I add the "Calendar" block
     # create event 1 in course 1
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -88,7 +91,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 2 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -108,7 +112,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 3 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -128,7 +133,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 4 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -148,7 +154,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 5 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -168,7 +175,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 6 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -188,7 +196,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 7 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "14"
@@ -208,7 +217,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 8 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "14"
@@ -228,7 +238,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 9 in course 1
     And I am on "Course 1" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C1"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "14"
@@ -249,7 +260,8 @@ Feature: Combined calendar
     And I am on "Course 2" course homepage with editing mode on
     And I add the "Calendar" block
     # create event 1 in course 2
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C2"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -269,7 +281,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 2 in course 2
     And I am on "Course 2" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C2"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -289,7 +302,8 @@ Feature: Combined calendar
     And I press "Save"
     # create event 3 in course 2
     And I am on "Course 2" course homepage
-    And I follow "This month"
+    And I follow "Full calendar"
+    And I set the field "course" to "C2"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "16"
@@ -313,7 +327,7 @@ Feature: Combined calendar
   Scenario: View course calendar events between the two selected dates 
     Given I log in as "teacher1"
     And I am on "Course 1" course homepage
-    And I navigate to "More" in current page administration
+    And I navigate to "Reports" in current page administration
     And I follow "Combined calendar"
     And I should see "Start"
     And I should see "End"
@@ -343,7 +357,7 @@ Feature: Combined calendar
   Scenario: View another course calendar events between the two selected dates 
     Given I log in as "teacher1"
     And I am on "Course 2" course homepage
-    And I navigate to "More" in current page administration
+    And I navigate to "Reports" in current page administration
     And I follow "Combined calendar"
     And I should see "Start"
     And I should see "End"
@@ -368,7 +382,7 @@ Feature: Combined calendar
   Scenario: There are no events between the two selected dates
     Given I log in as "teacher1"
     And I am on "Course 1" course homepage
-    And I navigate to "More" in current page administration
+    And I navigate to "Reports" in current page administration
     And I follow "Combined calendar"
     And I set the following fields to these values:
       | start[day]          |  20       |
@@ -380,7 +394,7 @@ Feature: Combined calendar
     When I press "Display"
     Then I should see "There are no events between the two selected dates"
     And I am on "Course 2" course homepage
-    And I navigate to "More" in current page administration
+    And I navigate to "Reports" in current page administration
     And I follow "Combined calendar"
     And I set the following fields to these values:
       | start[day]          |  21       |

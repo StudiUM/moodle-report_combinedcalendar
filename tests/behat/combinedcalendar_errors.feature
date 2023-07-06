@@ -16,7 +16,7 @@ Feature: Combined calendar form testing
       | teacher1 | C1     | editingteacher |
     And I log in as "teacher1"
     And I am on "Course 1" course homepage
-    And I navigate to "More" in current page administration
+    And I navigate to "Reports" in current page administration
     And I follow "Combined calendar"
 
   Scenario: Start date is greater than end date

@@ -26,6 +26,7 @@
 namespace report_combinedcalendar;
 
 defined('MOODLE_INTERNAL') || die();
+use core_calendar_externallib_testcase;
 
 global $CFG;
 
@@ -130,7 +131,7 @@ class lib_test extends \advanced_testcase {
         $record->groupid = $group1->id;
         $record->timestart = strtotime("2022-02-20 8:00");
         $record->timeduration = 10800;
-        \core_calendar_externallib_testcase::create_calendar_event('session 1', 0,
+        \core_calendar\externallib_test::create_calendar_event('session 1', 0,
             'group', 0, null, $record);
 
         // Create calendar event 2.
@@ -139,7 +140,7 @@ class lib_test extends \advanced_testcase {
         $record->groupid = $group3->id;
         $record->timestart = strtotime("2022-02-20 8:00");
         $record->timeduration = 10800;
-        \core_calendar_externallib_testcase::create_calendar_event('session 1', 0,
+        \core_calendar\externallib_test::create_calendar_event('session 1', 0,
             'group', 0, null, $record);
 
         // Create calendar event 3.
@@ -148,7 +149,7 @@ class lib_test extends \advanced_testcase {
         $record->groupid = $group2->id;
         $record->timestart = strtotime("2022-02-22 13:30");
         $record->timeduration = 7200;
-        \core_calendar_externallib_testcase::create_calendar_event('session 2', 0,
+        \core_calendar\externallib_test::create_calendar_event('session 2', 0,
             'group', 0, null, $record);
 
         // Create calendar event 4.
@@ -157,7 +158,7 @@ class lib_test extends \advanced_testcase {
         $record->groupid = $group4->id;
         $record->timestart = strtotime("2022-02-22 13:30");
         $record->timeduration = 7200;
-        \core_calendar_externallib_testcase::create_calendar_event('session 2', 0,
+        \core_calendar\externallib_test::create_calendar_event('session 2', 0,
             'group', 0, null, $record);
 
         // There are some events between the two dates.
