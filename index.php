@@ -32,21 +32,21 @@ require_once($CFG->dirroot.'/report/combinedcalendar/combinedcalendar_form.php')
 
 $id = optional_param('id', 0, PARAM_INT);
 
-$params = array();
+$params = [];
 if (!empty($id)) {
     $params['id'] = $id;
 }
 
 $url = new moodle_url("/report/combinedcalendar/index.php", $params);
 
-$PAGE->set_url('/report/combinedcalendar/index.php', array('id' => $id));
+$PAGE->set_url('/report/combinedcalendar/index.php', ['id' => $id]);
 $PAGE->set_pagelayout('report');
 $PAGE->requires->css(new moodle_url('/report/combinedcalendar/styles.css'));
 
 // Get course details.
 $course = null;
 if ($id) {
-    $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
+    $course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
     require_login($course);
     $context = context_course::instance($course->id);
 } else {

@@ -34,7 +34,7 @@
  */
 function report_combinedcalendar_extend_navigation_course($navigation, $course, $context) {
     if (has_capability('report/combinedcalendar:view', $context)) {
-        $url = new moodle_url('/report/combinedcalendar/index.php', array('id' => $course->id));
+        $url = new moodle_url('/report/combinedcalendar/index.php', ['id' => $course->id]);
         $navigation->add(get_string('pluginname', 'report_combinedcalendar'), $url,
             navigation_node::TYPE_SETTING, null, null, new pix_icon('i/report', ''));
     }
@@ -50,7 +50,10 @@ function report_combinedcalendar_extend_navigation_course($navigation, $course, 
 function report_combinedcalendar_validate_dates($start, $end) {
     global $OUTPUT;
 
-    $result = array('success' => false, 'error' => '');
+    $result = [
+               'success' => false,
+               'error'   => '',
+              ];
 
     if ($start < $end) {
         $startdatetime = new DateTime('@' . $start);
@@ -80,7 +83,7 @@ function report_combinedcalendar_validate_dates($start, $end) {
  * @return array
  */
 function report_combinedcalendar_events_group_by($field, $calendarevents) {
-    $events = array();
+    $events = [];
     switch ($field) {
         case 'group':
             foreach ($calendarevents as $element) {
@@ -107,7 +110,7 @@ function report_combinedcalendar_events_group_by($field, $calendarevents) {
  */
 function get_combined_calendar_groups($calendareventsbygroup, $calendareventsbydatetimekeys) {
 
-    $result  = array();
+    $result  = [];
 
     foreach ($calendareventsbygroup as $groupid => $groupeventsdata) {
         // Group name.
@@ -116,26 +119,27 @@ function get_combined_calendar_groups($calendareventsbygroup, $calendareventsbyd
         // Group members.
         $groupmembers = groups_get_members($groupid);
         foreach ($groupeventsdata as $groupevent) {
-            $members = array();
+            $members = [];
             foreach ($groupmembers as $member) {
                 $members[]['member'] = $member->firstname.'  '.$member->lastname;
             }
         }
 
         // Group events.
-        $groupevents = array();
+        $groupevents = [];
         $groupeventsbydatetime = array_keys($groupeventsdata);
         foreach ($calendareventsbydatetimekeys as $event) {
             if (in_array($event, $groupeventsbydatetime)) {
-                array_push($groupevents, array('hasevent' => true, 'members' => $members));
+                array_push($groupevents, ['hasevent' => true, 'members' => $members]);
             } else {
                 $groupevents[]['hasevent'] = false;
             }
         }
 
-        $groupdata = array('name' => $groupname,
-            'groupevents' => $groupevents
-        );
+        $groupdata = [
+                      'name'        => $groupname,
+                      'groupevents' => $groupevents,
+                     ];
 
         $result[] = $groupdata;
     }
@@ -151,7 +155,7 @@ function get_combined_calendar_groups($calendareventsbygroup, $calendareventsbyd
  */
 function get_combined_calendar_events($calendareventsbydatetime) {
 
-    $result  = array();
+    $result  = [];
 
     foreach ($calendareventsbydatetime as $event => $data) {
         $eventdata = explode('|', reset($data));
@@ -164,9 +168,10 @@ function get_combined_calendar_events($calendareventsbydatetime) {
         $eventslotend = date('H:i', $eventdata[1] + $eventdata[2]);
         $eventslot = $eventslotstart.' '.get_string('to', 'report_combinedcalendar').' '.$eventslotend;
 
-        $eventdata = array('date' => $eventdate,
-            'timeslot' => $eventslot,
-        );
+        $eventdata = [
+                      'date'     => $eventdate,
+                      'timeslot' => $eventslot,
+                     ];
 
         $result[] = $eventdata;
     }
@@ -182,15 +187,16 @@ function get_combined_calendar_events($calendareventsbydatetime) {
  */
 function get_combined_calendar_dates($combinedcalendarevents) {
 
-    $result  = array();
+    $result  = [];
 
     $dates = array_count_values(array_column($combinedcalendarevents, 'date'));
 
     foreach ($dates as $date => $count) {
 
-        $datedata = array('date' => $date,
-            'count' => $count
-        );
+        $datedata = [
+                     'date'  => $date,
+                     'count' => $count,
+                    ];
 
         $result[] = $datedata;
     }
@@ -208,7 +214,7 @@ function get_combined_calendar_dates($combinedcalendarevents) {
  */
 function get_combined_calendar_data($start, $end, $courseid) {
 
-    $datatodisplay = array('hasevents' => false);
+    $datatodisplay = ['hasevents' => false];
 
     // Get course groups ids.
     $coursegroups = array_keys(groups_get_all_groups($courseid));
@@ -229,8 +235,12 @@ function get_combined_calendar_data($start, $end, $courseid) {
         $calendareventsbydatetimekeys = array_keys($calendareventsbydatetime);
         $combinedcalendargroups = get_combined_calendar_groups($calendareventsbygroup, $calendareventsbydatetimekeys);
 
-        $datatodisplay = array('hasevents' => true, 'dates' => $combinedcalendardates,
-            'events' => $combinedcalendarevents, 'groups' => $combinedcalendargroups);
+        $datatodisplay = [
+                          'hasevents' => true,
+                          'dates'     => $combinedcalendardates,
+                          'events'    => $combinedcalendarevents,
+                          'groups'    => $combinedcalendargroups,
+                         ];
     }
 
     return $datatodisplay;

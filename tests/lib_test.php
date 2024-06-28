@@ -62,23 +62,30 @@ class lib_test extends \advanced_testcase {
         $start = strtotime("22 February 2022");
         $end = strtotime("25 February 2022");
         $result = report_combinedcalendar_validate_dates($start, $end);
-        $expectedresult = array('success' => true, 'error' => '');
+        $expectedresult = [
+                           'success' => true,
+                           'error'   => '',
+                          ];
         $this->assertEquals($expectedresult, $result);
 
         // Error : Start is greater than end.
         $start = strtotime("28 February 2022");
         $end = strtotime("25 February 2022");
         $result = report_combinedcalendar_validate_dates($start, $end);
-        $expectedresult = array('success' => false,
-            'error' => $OUTPUT->render_from_template('report_combinedcalendar/endgreaterthanstarterror', []));
+        $expectedresult = [
+                           'success' => false,
+                           'error'   => $OUTPUT->render_from_template('report_combinedcalendar/endgreaterthanstarterror', []),
+                          ];
         $this->assertEquals($expectedresult, $result);
 
         // Error : The inerval between start and end is greater than 30 days.
         $start = strtotime("22 February 2022");
         $end = strtotime("25 April 2022");
         $result = report_combinedcalendar_validate_dates($start, $end);
-        $expectedresult = array('success' => false,
-            'error' => $OUTPUT->render_from_template('report_combinedcalendar/endstartintervalerror', []));
+        $expectedresult = [
+                           'success' => false,
+                           'error'   => $OUTPUT->render_from_template('report_combinedcalendar/endstartintervalerror', []),
+                          ];
         $this->assertEquals($expectedresult, $result);
     }
 
@@ -102,8 +109,8 @@ class lib_test extends \advanced_testcase {
         $teacher2 = $generator->create_user();
 
         // Users enrolments.
-        $studentrole = $DB->get_record('role', array('shortname' => 'student'));
-        $teacherrole = $DB->get_record('role', array('shortname' => 'editingteacher'));
+        $studentrole = $DB->get_record('role', ['shortname' => 'student']);
+        $teacherrole = $DB->get_record('role', ['shortname' => 'editingteacher']);
         $generator->enrol_user($student1->id, $course->id, $studentrole->id, 'manual');
         $generator->enrol_user($student2->id, $course->id, $studentrole->id, 'manual');
         $generator->enrol_user($student3->id, $course->id, $studentrole->id, 'manual');
@@ -112,18 +119,18 @@ class lib_test extends \advanced_testcase {
         $generator->enrol_user($teacher2->id, $course->id, $teacherrole->id, 'manual');
 
         // Create groups.
-        $group1 = $generator->create_group(array('courseid' => $course->id));
-        $group2 = $generator->create_group(array('courseid' => $course->id));
-        $group3 = $generator->create_group(array('courseid' => $course->id));
-        $group4 = $generator->create_group(array('courseid' => $course->id));
+        $group1 = $generator->create_group(['courseid' => $course->id]);
+        $group2 = $generator->create_group(['courseid' => $course->id]);
+        $group3 = $generator->create_group(['courseid' => $course->id]);
+        $group4 = $generator->create_group(['courseid' => $course->id]);
 
         // Adding users to groups.
-        $generator->create_group_member(array('userid' => $student1->id, 'groupid' => $group1->id));
-        $generator->create_group_member(array('userid' => $student2->id, 'groupid' => $group1->id));
-        $generator->create_group_member(array('userid' => $student3->id, 'groupid' => $group2->id));
-        $generator->create_group_member(array('userid' => $student4->id, 'groupid' => $group2->id));
-        $generator->create_group_member(array('userid' => $teacher1->id, 'groupid' => $group3->id));
-        $generator->create_group_member(array('userid' => $teacher2->id, 'groupid' => $group4->id));
+        $generator->create_group_member(['userid' => $student1->id, 'groupid' => $group1->id]);
+        $generator->create_group_member(['userid' => $student2->id, 'groupid' => $group1->id]);
+        $generator->create_group_member(['userid' => $student3->id, 'groupid' => $group2->id]);
+        $generator->create_group_member(['userid' => $student4->id, 'groupid' => $group2->id]);
+        $generator->create_group_member(['userid' => $teacher1->id, 'groupid' => $group3->id]);
+        $generator->create_group_member(['userid' => $teacher2->id, 'groupid' => $group4->id]);
 
         // Create calendar event 1.
         $record = new \stdClass();
@@ -165,9 +172,16 @@ class lib_test extends \advanced_testcase {
         $start = strtotime("20 February 2022");
         $end = strtotime("25 February 2022");
         $result = get_combined_calendar_data($start, $end, $course->id);
-        $expectedevents = array(array('date' => '2022-02-20', 'timeslot' => '08:00 to 11:00'),
-            array('date' => '2022-02-22', 'timeslot' => '13:30 to 15:30')
-        );
+        $expectedevents = [
+                           [
+                            'date'     => '2022-02-20',
+                            'timeslot' => '08:00 to 11:00',
+                           ],
+                           [
+                            'date'     => '2022-02-22',
+                            'timeslot' => '13:30 to 15:30',
+                           ],
+                          ];
 
         $this->assertTrue($result['hasevents']);
         $this->assertEquals($expectedevents, $result['events']);
@@ -177,9 +191,16 @@ class lib_test extends \advanced_testcase {
         $start = strtotime("25 February 2022");
         $end = strtotime("27 February 2022");
         $result = get_combined_calendar_data($start, $end, $course->id);
-        $expectedevents = array(array('date' => '2022-02-20', 'timeslot' => '08:00 to 11:00'),
-            array('date' => '2022-02-22', 'timeslot' => '13:30 to 15:30')
-        );
+        $expectedevents = [
+                           [
+                            'date'     => '2022-02-20',
+                            'timeslot' => '08:00 to 11:00',
+                           ],
+                           [
+                            'date'     => '2022-02-22',
+                            'timeslot' => '13:30 to 15:30',
+                           ],
+                          ];
 
         $this->assertFalse($result['hasevents']);
     }
