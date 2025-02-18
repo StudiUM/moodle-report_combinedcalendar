@@ -70,8 +70,9 @@ Feature: Combined calendar
     And I am on "Course 1" course homepage with editing mode on
     And I add the "Calendar" block
     # create event 1 in course 1
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -90,9 +91,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 2 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -111,9 +112,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 3 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -132,9 +133,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 4 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -153,9 +154,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 5 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -174,9 +175,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 6 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -195,9 +196,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 7 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "14"
@@ -216,9 +217,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "00"
     And I press "Save"
     # create event 8 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "14"
@@ -237,9 +238,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "00"
     And I press "Save"
     # create event 9 in course 1
-    And I am on "Course 1" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C1"
+    And I set the field "course" to "Course 1"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "14"
@@ -260,8 +261,9 @@ Feature: Combined calendar
     And I am on "Course 2" course homepage with editing mode on
     And I add the "Calendar" block
     # create event 1 in course 2
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C2"
+    And I set the field "course" to "Course 2"
     And I press "New event"
     And I set the field "Event title" to "Event 1"
     And I set the field "timestart[day]" to "10"
@@ -280,9 +282,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 2 in course 2
-    And I am on "Course 2" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C2"
+    And I set the field "course" to "Course 2"
     And I press "New event"
     And I set the field "Event title" to "Event 2"
     And I set the field "timestart[day]" to "10"
@@ -301,9 +303,9 @@ Feature: Combined calendar
     And I set the field "timedurationuntil[minute]" to "30"
     And I press "Save"
     # create event 3 in course 2
-    And I am on "Course 2" course homepage
+    And I follow "Dashboard"
     And I follow "Full calendar"
-    And I set the field "course" to "C2"
+    And I set the field "course" to "Course 2"
     And I press "New event"
     And I set the field "Event title" to "Event 3"
     And I set the field "timestart[day]" to "16"

@@ -42,7 +42,7 @@ require_once($CFG->dirroot . '/calendar/tests/externallib_test.php');
  * @copyright 2022 Université de Montréal
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class lib_test extends \advanced_testcase {
+final class lib_test extends \advanced_testcase {
 
     /**
      * Set up for every test
@@ -50,12 +50,15 @@ class lib_test extends \advanced_testcase {
     public function setUp(): void {
         $this->resetAfterTest();
         $this->setAdminUser();
+        parent::setUp();
     }
 
     /**
      * Test report_combinedcalendar_validate_dates function.
+     *
+     * @covers ::report_combinedcalendar_validate_dates
      */
-    public function test_report_combinedcalendar_validate_dates() {
+    public function test_report_combinedcalendar_validate_dates(): void {
         global $OUTPUT;
 
         // Success.
@@ -91,8 +94,10 @@ class lib_test extends \advanced_testcase {
 
     /**
      * Test get_combined_calendar_data function.
+     *
+     * @covers ::get_combined_calendar_data
      */
-    public function test_get_combined_calendar_data() {
+    public function test_get_combined_calendar_data(): void {
         global $DB;
 
         $generator = $this->getDataGenerator();
