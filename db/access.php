@@ -26,16 +26,14 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
-
-                 'report/combinedcalendar:view' => [
-                                                    'riskbitmask'  => RISK_PERSONAL,
-                                                    'captype'      => 'read',
-                                                    'contextlevel' => CONTEXT_SYSTEM,
-                                                    'archetypes'   => [
-                                                                       'teacher'        => CAP_ALLOW,
-                                                                       'editingteacher' => CAP_ALLOW,
-                                                                       'manager'        => CAP_ALLOW,
-                                                                      ],
-                                                   ],
-                ];
-
+    'report/combinedcalendar:view' => [
+        'riskbitmask'  => RISK_PERSONAL,
+        'captype'      => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [
+            'teacher'        => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'manager'        => CAP_ALLOW,
+        ],
+    ],
+];

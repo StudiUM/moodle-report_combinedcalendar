@@ -24,11 +24,11 @@
  */
 
 require_once('../../config.php');
-require_once($CFG->dirroot.'/lib/statslib.php');
-require_once($CFG->libdir.'/adminlib.php');
-require_once($CFG->dirroot.'/calendar/lib.php');
-require_once($CFG->dirroot.'/report/combinedcalendar/lib.php');
-require_once($CFG->dirroot.'/report/combinedcalendar/combinedcalendar_form.php');
+require_once($CFG->dirroot . '/lib/statslib.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->dirroot . '/calendar/lib.php');
+require_once($CFG->dirroot . '/report/combinedcalendar/lib.php');
+require_once($CFG->dirroot . '/report/combinedcalendar/combinedcalendar_form.php');
 
 $id = optional_param('id', 0, PARAM_INT);
 

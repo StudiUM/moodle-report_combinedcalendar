@@ -43,7 +43,6 @@ require_once($CFG->dirroot . '/calendar/tests/externallib_test.php');
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class lib_test extends \advanced_testcase {
-
     /**
      * Set up for every test
      */
@@ -143,8 +142,14 @@ final class lib_test extends \advanced_testcase {
         $record->groupid = $group1->id;
         $record->timestart = strtotime("2022-02-20 8:00");
         $record->timeduration = 10800;
-        \core_calendar\externallib_test::create_calendar_event('session 1', 0,
-            'group', 0, null, $record);
+        \core_calendar\externallib_test::create_calendar_event(
+            'session 1',
+            0,
+            'group',
+            0,
+            null,
+            $record
+        );
 
         // Create calendar event 2.
         $record = new \stdClass();
@@ -152,8 +157,14 @@ final class lib_test extends \advanced_testcase {
         $record->groupid = $group3->id;
         $record->timestart = strtotime("2022-02-20 8:00");
         $record->timeduration = 10800;
-        \core_calendar\externallib_test::create_calendar_event('session 1', 0,
-            'group', 0, null, $record);
+        \core_calendar\externallib_test::create_calendar_event(
+            'session 1',
+            0,
+            'group',
+            0,
+            null,
+            $record
+        );
 
         // Create calendar event 3.
         $record = new \stdClass();
@@ -161,8 +172,14 @@ final class lib_test extends \advanced_testcase {
         $record->groupid = $group2->id;
         $record->timestart = strtotime("2022-02-22 13:30");
         $record->timeduration = 7200;
-        \core_calendar\externallib_test::create_calendar_event('session 2', 0,
-            'group', 0, null, $record);
+        \core_calendar\externallib_test::create_calendar_event(
+            'session 2',
+            0,
+            'group',
+            0,
+            null,
+            $record
+        );
 
         // Create calendar event 4.
         $record = new \stdClass();
@@ -170,8 +187,14 @@ final class lib_test extends \advanced_testcase {
         $record->groupid = $group4->id;
         $record->timestart = strtotime("2022-02-22 13:30");
         $record->timeduration = 7200;
-        \core_calendar\externallib_test::create_calendar_event('session 2', 0,
-            'group', 0, null, $record);
+        \core_calendar\externallib_test::create_calendar_event(
+            'session 2',
+            0,
+            'group',
+            0,
+            null,
+            $record
+        );
 
         // There are some events between the two dates.
         $start = strtotime("20 February 2022");
@@ -210,4 +233,3 @@ final class lib_test extends \advanced_testcase {
         $this->assertFalse($result['hasevents']);
     }
 }
-

@@ -36,4 +36,3 @@ $string['pluginname'] = 'Combined calendar';
 $string['privacy:metadata'] = 'The Combined calendar plugin does not store any personal data.';
 $string['start'] = 'Start';
 $string['to'] = 'to';
-
